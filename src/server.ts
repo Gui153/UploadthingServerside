@@ -18,13 +18,25 @@ const { GET, POST } = createRouteHandler({
   router: uploadRouter,
 });
 
-await Bun.build({
+const build = await Bun.build({
   entrypoints: [
     "./src/indexes/UploadButtonTestIndex.tsx",
   ],
   outdir: "./build",
   minify: true,
+  splitting: true,
 });
+
+import path from "path";
+
+for (const res of build.outputs) {
+  // Can be consumed as blobs
+  const txt = await res.text()
+  Bun.write(
+    "./build/" + path.basename(res.path),
+    txt.replaceAll("import.meta.env||", ""),
+  );
+}
 
 const doYouLikeSwaggerUIBetter = false;
 
