@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 
 import { UploadButton } from "../components/uploadthing/components";
-
+const apikey = process.env.UPLOADTHING_SECRET;
 function WhatServer() {
     const [serverResponse, setServerResponse] = React.useState<string>("");
     useEffect(() => {
@@ -26,10 +26,10 @@ const UploadButtonTest = () => {
         <meta name="description" content="Start designing with Logo365.AI" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <div className="container">
-        <body>
-          
+      <body>
+        <div className="container">    
           <div className="content">
+            {apikey}
             <div className="start-container">
               <WhatServer />
               <div>
@@ -48,8 +48,8 @@ const UploadButtonTest = () => {
               </div>
             </div>
           </div>
-        </body>
-      </div>
+        </div>
+      </body>
     </html>
   );
 };
